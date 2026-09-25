@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Archive 001 — KAYPITAL STUDIOS</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">KAYPITAL STUDIOS</a>
+    <div class="nav-links">
+      <a href="/archive-001.html">Archive 001</a>
+      <a href="/shop.html">Shop</a>
+      <a href="/lookbook.html">Lookbook</a>
+      <a href="/about.html">About</a>
+    </div>
+  </div>
+</nav>
+
+<main class="container">
+  <section style="padding-top:60px; max-width:640px">
+    <div class="collection-ref">ARCHIVE 001</div>
+    <h1 style="font-size:44px">The Beginning.</h1>
+    <p>The first Kaypital Studios collection — seven pieces, built to be worn on repeat.</p>
+  </section>
+  <div id="grid" class="product-grid"><p>Loading&hellip;</p></div>
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <span>KAYPITAL STUDIOS</span>
+    <span>&copy; <span id="year"></span></span>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/config.js"></script>
+<script src="/shop.js"></script>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  // 'archive-001' is the collection slug — create it once in the admin
+  // panel (or directly in Supabase) with this exact slug.
+  fetchPublishedProducts({ collectionSlug: 'archive-001' })
+    .then(products => renderProductGrid(products, document.getElementById('grid')));
+</script>
+</body>
+</html>

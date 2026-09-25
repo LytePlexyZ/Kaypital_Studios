@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title id="pageTitle">Product — KAYPITAL STUDIOS</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">KAYPITAL STUDIOS</a>
+    <div class="nav-links">
+      <a href="/archive-001.html">Archive 001</a>
+      <a href="/shop.html">Shop</a>
+      <a href="/lookbook.html">Lookbook</a>
+      <a href="/about.html">About</a>
+    </div>
+  </div>
+</nav>
+
+<main class="container">
+  <div id="content" class="product-detail"><p>Loading&hellip;</p></div>
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <span>KAYPITAL STUDIOS</span>
+    <span>&copy; <span id="year"></span></span>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/config.js"></script>
+<script src="/shop.js"></script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+const slug = new URLSearchParams(location.search).get('slug');
+const content = document.getElementById('content');
+
+if (!slug) {
+  content.innerHTML = '<p>No product specified.</p>';
+} else {
+  fetchProductBySlug(slug).then(product => {
+    if (!product) {
+      content.innerHTML = '<p>That product isn\'t available.</p>';
+      return;
+    }
+    document.getElementById('pageTitle').textContent = product.name + ' — KAYPITAL STUDIOS';
+
+    const images = (product.product_images || []).sort((a, b) => a.sort_order - b.sort_order);
+    const variants = product.product_variants || [];
+    const colors = [...new Set(variants.map(v => v.color))];
+    const sizes = [...new Set(variants.map(v => v.size))];
+
+    let selectedColor = colors[0] || null;
+    let selectedSize = null;
+
+    content.innerHTML = `
+      <div class="gallery">
+        <div class="gallery-main"><img id="mainImg" src="${images[0]?.url || '/placeholder.jpg'}" alt="${product.name}"></div>
+        <div class="gallery-thumbs">
+          ${images.map((img, i) => `<div class="thumb${i === 0 ? ' active' : ''}" data-src="${img.url}"><img src="${img.url}"></div>`).join('')}
+        </div>
+      </div>
+      <div class="product-info">
+        <div class="category">${product.category}${product.collections ? ' &middot; ' + product.collections.name : ''}</div>
+        <h1>${product.name}</h1>
+        <div class="price">$${Number(product.price).toFixed(0)}</div>
+        <p>${product.description || ''}</p>
+
+        ${colors.length ? `
+        <div class="option-group">
+          <div class="label">Color</div>
+          <div class="swatches" id="colorGroup">
+            ${colors.map(c => `<button type="button" class="swatch" data-color="${c}">${c}</button>`).join('')}
+          </div>
+        </div>` : ''}
+
+        ${sizes.length ? `
+        <div class="option-group">
+          <div class="label">Size</div>
+          <div class="sizes" id="sizeGroup">
+            ${sizes.map(s => `<button type="button" class="size-pill" data-size="${s}">${s}</button>`).join('')}
+          </div>
+        </div>` : ''}
+
+        <div class="availability-note">Online ordering isn't live yet — this is a preview of Archive 001.</div>
+      </div>
+    `;
+
+    document.querySelectorAll('.thumb').forEach(t => t.addEventListener('click', () => {
+      document.querySelectorAll('.thumb').forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+      document.getElementById('mainImg').src = t.dataset.src;
+    }));
+
+    function refreshAvailability() {
+      document.querySelectorAll('#sizeGroup .size-pill').forEach(btn => {
+        const size = btn.dataset.size;
+        const match = variants.find(v => v.color === selectedColor && v.size === size);
+        btn.disabled = !match || !match.available;
+      });
+    }
+
+    document.querySelectorAll('#colorGroup .swatch').forEach(btn => {
+      btn.addEventListener('click', () => {
+        selectedColor = btn.dataset.color;
+        document.querySelectorAll('#colorGroup .swatch').forEach(x => x.classList.remove('selected'));
+        btn.classList.add('selected');
+        refreshAvailability();
+      });
+    });
+
+    document.querySelectorAll('#sizeGroup .size-pill').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.disabled) return;
+        selectedSize = btn.dataset.size;
+        document.querySelectorAll('#sizeGroup .size-pill').forEach(x => x.classList.remove('selected'));
+        btn.classList.add('selected');
+      });
+    });
+
+    if (colors.length) document.querySelector('#colorGroup .swatch').click();
+  });
+}
+</script>
+</body>
+</html>

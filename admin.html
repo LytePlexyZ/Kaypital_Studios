@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KAYPITAL STUDIOS — Admin</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">KAYPITAL STUDIOS</a>
+    <div class="nav-links"><a href="/shop.html">View Shop</a></div>
+    <button id="logout" class="small-button hidden" onclick="logout()">Log out</button>
+  </div>
+</nav>
+
+<div id="login" class="login-wrap">
+  <div class="login-card">
+    <div class="eyebrow">PRIVATE AREA</div>
+    <h1>Kaypital Admin</h1>
+    <p>Only an authenticated admin account can manage products.</p>
+    <form id="loginForm">
+      <input id="email" class="input" type="email" placeholder="Email" required>
+      <input id="password" class="input" type="password" placeholder="Password" required>
+      <button class="button" type="submit">Sign in</button>
+    </form>
+    <div id="loginStatus" class="status"></div>
+  </div>
+</div>
+
+<main id="dashboard" class="admin-shell hidden">
+  <div class="container">
+    <div class="admin-top">
+      <div>
+        <div class="admin-title">Product manager</div>
+      </div>
+      <a class="button ghost" href="/shop.html">Open shop →</a>
+    </div>
+
+    <div class="admin-grid">
+      <section class="panel">
+        <h2>Add product</h2>
+        <form id="productForm">
+          <div class="form-grid">
+            <div class="field"><label>Product name</label><input id="name" class="input" required></div>
+            <div class="field"><label>Slug</label><input id="slug" class="input" placeholder="kaypital-archive-tee" required></div>
+            <div class="field"><label>Collection slug</label><input id="collectionSlug" class="input" placeholder="archive-001"></div>
+            <div class="field">
+              <label>Category</label>
+              <select id="category" class="select">
+                <option value="t-shirt">T-shirt</option>
+                <option value="hoodie">Hoodie</option>
+                <option value="long-sleeve">Long sleeve</option>
+                <option value="sweatpants">Sweatpants</option>
+                <option value="shorts">Shorts</option>
+                <option value="outerwear">Outerwear</option>
+                <option value="shoes">Shoes</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="field"><label>Price (USD)</label><input id="price" class="input" type="number" step="1" value="45"></div>
+            <div class="field full"><label>Description</label><textarea id="description" class="textarea" rows="3"></textarea></div>
+
+            <div class="field full">
+              <label>Colors &amp; sizes (variants)</label>
+              <div id="variantRows"></div>
+              <button type="button" class="small-button" id="addVariantRow">+ Add variant</button>
+            </div>
+
+            <div class="field full">
+              <label>Main image</label>
+              <div class="drop" data-slot="main">Drop image here or click<input type="file" accept="image/*" hidden></div>
+              <div class="file-status"></div>
+            </div>
+            <div class="field full">
+              <label>Front image</label>
+              <div class="drop" data-slot="front">Drop image here or click<input type="file" accept="image/*" hidden></div>
+              <div class="file-status"></div>
+            </div>
+            <div class="field full">
+              <label>Back image</label>
+              <div class="drop" data-slot="back">Drop image here or click<input type="file" accept="image/*" hidden></div>
+              <div class="file-status"></div>
+            </div>
+            <div class="field full">
+              <label>Detail images (up to 3)</label>
+              <div class="drop" data-slot="detail">Drop image here or click<input type="file" accept="image/*" hidden></div>
+              <div class="file-status"></div>
+            </div>
+
+            <div class="field full">
+              <label>Status</label>
+              <select id="status" class="select">
+                <option value="draft">Save as draft</option>
+                <option value="published">Publish immediately</option>
+              </select>
+            </div>
+          </div>
+          <button class="button" style="margin-top:15px" type="submit">Save product</button>
+          <div id="formStatus" class="status"></div>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h2>Your catalog</h2>
+        <div id="adminList" class="admin-list"></div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/config.js"></script>
+<script src="/admin.js"></script>
+</body>
+</html>

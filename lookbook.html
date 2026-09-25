@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lookbook — KAYPITAL STUDIOS</title>
+<link rel="stylesheet" href="/style.css">
+<style>
+  .lookbook-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; padding:60px 0 100px; }
+  .lookbook-grid img { width:100%; aspect-ratio:3/4; object-fit:cover; background:var(--surface); }
+  @media (max-width:700px){ .lookbook-grid{ grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">KAYPITAL STUDIOS</a>
+    <div class="nav-links">
+      <a href="/archive-001.html">Archive 001</a>
+      <a href="/shop.html">Shop</a>
+      <a href="/lookbook.html">Lookbook</a>
+      <a href="/about.html">About</a>
+    </div>
+  </div>
+</nav>
+
+<main class="container">
+  <section style="padding-top:60px">
+    <h1 style="font-size:40px">Lookbook</h1>
+    <p>Archive 001, on the body. Images are managed from the admin panel — this page pulls placeholders until then.</p>
+  </section>
+  <div id="grid" class="lookbook-grid">
+    <img alt="">
+    <img alt="">
+    <img alt="">
+    <img alt="">
+  </div>
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <span>KAYPITAL STUDIOS</span>
+    <span>&copy; <span id="year"></span></span>
+  </div>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
