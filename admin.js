@@ -11,8 +11,22 @@ const supabaseClient = window.supabase.createClient(
 );
 
 const loginEl = document.getElementById('login');
-const dashboardEl = document.getElementById('dashboard');
+const dashboardEl = document.getElementById('adminShell');
 const logoutBtn = document.getElementById('logout');
+
+// ---------------- Tabs ----------------
+
+function initTabs() {
+  document.querySelectorAll('.admin-tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.admin-tab-panel').forEach(p => p.classList.add('hidden'));
+      document.getElementById('tab-' + btn.dataset.tab).classList.remove('hidden');
+    });
+  });
+}
+initTabs();
 
 // ---------------- Auth ----------------
 
