@@ -19,7 +19,7 @@
   <div class="login-card">
     <div class="eyebrow">PRIVATE AREA</div>
     <h1>Kaypital Admin</h1>
-    <p>Only an authenticated admin account can manage products.</p>
+    <p>Only an authenticated admin account can manage the store.</p>
     <form id="loginForm">
       <input id="email" class="input" type="email" placeholder="Email" required>
       <input id="password" class="input" type="password" placeholder="Password" required>
@@ -29,84 +29,190 @@
   </div>
 </div>
 
-<main id="dashboard" class="admin-shell hidden">
+<main id="adminShell" class="admin-shell hidden">
   <div class="container">
     <div class="admin-top">
       <div>
-        <div class="admin-title">Product manager</div>
+        <div class="admin-title">Kaypital Admin</div>
       </div>
       <a class="button ghost" href="/shop.html">Open shop →</a>
     </div>
 
-    <div class="admin-grid">
+    <div class="admin-tabs-scroll">
+      <div class="admin-tabs">
+        <button class="admin-tab-btn active" data-tab="dashboard" type="button">Dashboard</button>
+        <button class="admin-tab-btn" data-tab="products" type="button">Products</button>
+        <button class="admin-tab-btn" data-tab="orders" type="button">Orders</button>
+        <button class="admin-tab-btn" data-tab="collections" type="button">Collections</button>
+        <button class="admin-tab-btn" data-tab="images" type="button">Images</button>
+        <button class="admin-tab-btn" data-tab="profit" type="button">Profit</button>
+        <button class="admin-tab-btn" data-tab="expenses" type="button">Expenses</button>
+        <button class="admin-tab-btn" data-tab="content" type="button">Site Content</button>
+        <button class="admin-tab-btn" data-tab="support" type="button">Support</button>
+        <button class="admin-tab-btn" data-tab="settings" type="button">Settings</button>
+        <button class="admin-tab-btn" data-tab="integrations" type="button">Integrations</button>
+      </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="tab-dashboard" class="admin-tab-panel">
       <section class="panel">
-        <h2>Add product</h2>
-        <form id="productForm">
-          <div class="form-grid">
-            <div class="field"><label>Product name</label><input id="name" class="input" required></div>
-            <div class="field"><label>Slug</label><input id="slug" class="input" placeholder="kaypital-archive-tee" required></div>
-            <div class="field"><label>Collection slug</label><input id="collectionSlug" class="input" placeholder="archive-001"></div>
-            <div class="field">
-              <label>Category</label>
-              <select id="category" class="select">
-                <option value="t-shirt">T-shirt</option>
-                <option value="hoodie">Hoodie</option>
-                <option value="long-sleeve">Long sleeve</option>
-                <option value="sweatpants">Sweatpants</option>
-                <option value="shorts">Shorts</option>
-                <option value="outerwear">Outerwear</option>
-                <option value="shoes">Shoes</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            <div class="field"><label>Price (USD)</label><input id="price" class="input" type="number" step="1" value="45"></div>
-            <div class="field full"><label>Description</label><textarea id="description" class="textarea" rows="3"></textarea></div>
-
-            <div class="field full">
-              <label>Colors &amp; sizes (variants)</label>
-              <div id="variantRows"></div>
-              <button type="button" class="small-button" id="addVariantRow">+ Add variant</button>
-            </div>
-
-            <div class="field full">
-              <label>Main image</label>
-              <div class="drop" data-slot="main">Drop image here or click<input type="file" accept="image/*" hidden></div>
-              <div class="file-status"></div>
-            </div>
-            <div class="field full">
-              <label>Front image</label>
-              <div class="drop" data-slot="front">Drop image here or click<input type="file" accept="image/*" hidden></div>
-              <div class="file-status"></div>
-            </div>
-            <div class="field full">
-              <label>Back image</label>
-              <div class="drop" data-slot="back">Drop image here or click<input type="file" accept="image/*" hidden></div>
-              <div class="file-status"></div>
-            </div>
-            <div class="field full">
-              <label>Detail images (up to 3)</label>
-              <div class="drop" data-slot="detail">Drop image here or click<input type="file" accept="image/*" hidden></div>
-              <div class="file-status"></div>
-            </div>
-
-            <div class="field full">
-              <label>Status</label>
-              <select id="status" class="select">
-                <option value="draft">Save as draft</option>
-                <option value="published">Publish immediately</option>
-              </select>
-            </div>
-          </div>
-          <button class="button" style="margin-top:15px" type="submit">Save product</button>
-          <div id="formStatus" class="status"></div>
-        </form>
-      </section>
-
-      <section class="panel">
-        <h2>Your catalog</h2>
-        <div id="adminList" class="admin-list"></div>
+        <h2>Dashboard</h2>
+        <p>No data yet. Once WooCommerce is connected and orders start coming in, this will show total orders, revenue, estimated profit, best-selling products, and sales over time — all clearly marked as actual or estimated. Nothing here is fabricated in the meantime.</p>
       </section>
     </div>
+
+    <!-- PRODUCTS (existing functionality, unchanged) -->
+    <div id="tab-products" class="admin-tab-panel hidden">
+      <div class="admin-grid">
+        <section class="panel">
+          <h2>Add product</h2>
+          <form id="productForm">
+            <div class="form-grid">
+              <div class="field"><label>Product name</label><input id="name" class="input" required></div>
+              <div class="field"><label>Slug</label><input id="slug" class="input" placeholder="kaypital-archive-tee" required></div>
+              <div class="field"><label>Collection slug</label><input id="collectionSlug" class="input" placeholder="archive-001"></div>
+              <div class="field">
+                <label>Category</label>
+                <select id="category" class="select">
+                  <option value="t-shirt">T-shirt</option>
+                  <option value="hoodie">Hoodie</option>
+                  <option value="long-sleeve">Long sleeve</option>
+                  <option value="sweatpants">Sweatpants</option>
+                  <option value="shorts">Shorts</option>
+                  <option value="outerwear">Outerwear</option>
+                  <option value="shoes">Shoes</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="field"><label>Price (USD)</label><input id="price" class="input" type="number" step="1" value="45"></div>
+              <div class="field full"><label>Description</label><textarea id="description" class="textarea" rows="3"></textarea></div>
+
+              <div class="field full">
+                <label>Colors &amp; sizes (variants)</label>
+                <div id="variantRows"></div>
+                <button type="button" class="small-button" id="addVariantRow">+ Add variant</button>
+              </div>
+
+              <div class="field full">
+                <label>Main image</label>
+                <div class="drop" data-slot="main">Drop image here or click<input type="file" accept="image/*" hidden></div>
+                <div class="file-status"></div>
+              </div>
+              <div class="field full">
+                <label>Front image</label>
+                <div class="drop" data-slot="front">Drop image here or click<input type="file" accept="image/*" hidden></div>
+                <div class="file-status"></div>
+              </div>
+              <div class="field full">
+                <label>Back image</label>
+                <div class="drop" data-slot="back">Drop image here or click<input type="file" accept="image/*" hidden></div>
+                <div class="file-status"></div>
+              </div>
+              <div class="field full">
+                <label>Detail images (up to 3)</label>
+                <div class="drop" data-slot="detail">Drop image here or click<input type="file" accept="image/*" hidden></div>
+                <div class="file-status"></div>
+              </div>
+
+              <div class="field full">
+                <label>Status</label>
+                <select id="status" class="select">
+                  <option value="draft">Save as draft</option>
+                  <option value="published">Publish immediately</option>
+                </select>
+              </div>
+            </div>
+            <button class="button" style="margin-top:15px" type="submit">Save product</button>
+            <div id="formStatus" class="status"></div>
+          </form>
+        </section>
+
+        <section class="panel">
+          <h2>Your catalog</h2>
+          <div id="adminList" class="admin-list"></div>
+        </section>
+      </div>
+    </div>
+
+    <!-- ORDERS -->
+    <div id="tab-orders" class="admin-tab-panel hidden">
+      <section class="panel">
+        <h2>Orders</h2>
+        <p>Not built yet. This will show real orders (product, size, color, customer shipping info, fulfillment status) once WooCommerce is connected — no fake or placeholder orders are shown here.</p>
+      </section>
+    </div>
+
+    <!-- COLLECTIONS -->
+    <div id="tab-collections" class="admin-tab-panel hidden">
+      <section class="panel">
+        <h2>Collections</h2>
+        <p>Not built yet. For now, collections (like "Archive 001") are created directly in the Supabase table editor. A proper create/edit UI is coming in a later pass.</p>
+      </section>
+    </div>
+
+    <!-- IMAGES -->
+    <div id="tab-images" class="admin-tab-panel hidden">
+      <section class="panel">
+        <h2>Images</h2>
+        <p>Not built yet. Product images are currently managed from the Products tab when adding/editing a product. A dedicated media library view is coming in a later pass.</p>
+      </section>
+    </div>
+
+    <!-- PROFIT -->
+    <div id="tab-profit" class="admin-tab-panel hidden">
+      <section class="panel">
+        <h2>Profit</h2>
+        <p>Not built yet. This will hold per-product cost/profit settings and the standalone pricing calculator — pure math, no WooCommerce required, coming in the next pass.</p>
+      </section>
+    </div>
+
+    <!-- EXPENSES -->
+    <div id="tab-expenses" class="admin-tab-panel hidden">
+      <section class="panel">
+        <h2>Expenses</h2>
+        <p>Not built yet. This will track business costs (hosting, packaging, samples, advertising, etc.) separately from per-product costs.</p>
+      </section>
+    </div>
+
+    <!-- SITE CONTENT -->
+    <div id="tab-content" class="admin-tab-panel hidden">
+      <section class="panel">
+        <h2>Site Content</h2>
+        <p>Not built yet. This will let you edit brand name, motto, support email, social links, announcement bar, footer text, and store status without touching code.</p>
+      </section>
+    </div>
+
+    <!-- SUPPORT -->
+    <div id="tab-support" class="admin-tab-panel hidden">
+      <section class="panel">
+        <h2>Customer Support</h2>
+        <p>Not built yet. Contact form submissions and basic FAQ management will live here, centered around Kaypital9363@gmail.com.</p>
+      </section>
+    </div>
+
+    <!-- SETTINGS -->
+    <div id="tab-settings" class="admin-tab-panel hidden">
+      <section class="panel">
+        <h2>Settings</h2>
+        <p>Not built yet. General store configuration will live here.</p>
+      </section>
+    </div>
+
+    <!-- INTEGRATIONS -->
+    <div id="tab-integrations" class="admin-tab-panel hidden">
+      <section class="panel">
+        <h2>Integrations</h2>
+        <p style="margin-bottom:20px">Honest status only — nothing below is marked connected unless it's actually been verified.</p>
+        <div class="admin-list">
+          <div class="row"><span>WooCommerce</span><span class="status-pill">Not connected</span></div>
+          <div class="row"><span>Tapstitch</span><span class="status-pill">Not connected</span></div>
+          <div class="row"><span>Payment processor</span><span class="status-pill">Not configured</span></div>
+          <div class="row"><span>Domain</span><span class="status-pill">Requires setup</span></div>
+        </div>
+      </section>
+    </div>
+
   </div>
 </main>
 
